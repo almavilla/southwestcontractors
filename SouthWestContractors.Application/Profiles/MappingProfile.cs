@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SouthWestContractors.Application.Features.Categories.Commands.CreateCategory;
+using SouthWestContractors.Application.Features.Categories.Queries.GetCategoriesList;
 using SouthWestContractors.Application.Features.Contractors.Commands.CreateContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor;
 using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorsList;
@@ -19,6 +20,7 @@ namespace SouthWestContractors.Application.Profiles
             CreateMap<Contractor, CreateContractorDto>();
             CreateMap<Contractor, ContractorsListVm>();
             CreateMap<Galery, GaleriesListVm>();
+            CreateMap<Category, CategoryListVm>();
         }
     }
 }

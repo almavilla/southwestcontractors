@@ -18,6 +18,7 @@ namespace SouthWestContractors.Application.Features.Contractors.Commands.CreateC
         public string State { get; set; }
         public string Zipcode { get; set; }
         public string PhoneNumber { get; set; }
+        public ICollection<Galery> Galery { get; set; }
         public ICollection<Category> Categories { get; set; }
     }
 }

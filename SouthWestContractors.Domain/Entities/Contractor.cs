@@ -15,7 +15,8 @@ namespace SouthWestContractors.Domain.Entities
         public string State { get; set; }
         public string Zipcode { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public ICollection<Galery> Galery { get; set; }
+        public ICollection<ContractorCategory> ContractorCategories { get; set; }
 
     }
 }

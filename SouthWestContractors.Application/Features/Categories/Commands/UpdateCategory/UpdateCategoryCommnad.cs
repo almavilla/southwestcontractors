@@ -5,7 +5,7 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.UpdateCa
 {
     public class UpdateCategoryCommnad : IRequest
     {
-        public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
         public string Name { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using SouthWestContractors.Persistence;
 namespace SouthWestContractors.Persistence.Migrations
 {
     [DbContext(typeof(SouthWestContractorsDbContext))]
-    [Migration("20220601195525_InitialMigration")]
+    [Migration("20220609150518_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,11 +23,8 @@ namespace SouthWestContractors.Persistence.Migrations
 
             modelBuilder.Entity("SouthWestContractors.Domain.Entities.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ContractorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -39,34 +36,32 @@ namespace SouthWestContractors.Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ContractorId");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
+                            CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Plumbing"
                         },
                         new
                         {
-                            Id = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
+                            CategoryId = new Guid("bf3f3002-7e53-441e-8b76-f6280be284aa"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Woodworking"
                         },
                         new
                         {
-                            Id = new Guid("bf3f3002-7e53-441e-8b76-f6280be284aa"),
+                            CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Electrical"
                         },
                         new
                         {
-                            Id = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
+                            CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Tile"
                         });
@@ -115,7 +110,7 @@ namespace SouthWestContractors.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            ContractorId = new Guid("29d1dc3d-504a-4cff-a11a-437dbb514097"),
+                            ContractorId = new Guid("ee272f8b-6096-4cb6-8625-bb4bb2d89e8a"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Egbert",
                             Name = "John",
@@ -123,15 +118,15 @@ namespace SouthWestContractors.Persistence.Migrations
                         },
                         new
                         {
-                            ContractorId = new Guid("d694a2ef-dae5-4b57-8552-48f4cc69592b"),
+                            ContractorId = new Guid("3448d5a4-0f72-4dd7-bf15-c14a46b26c00"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Johnson",
                             Name = "Mark",
-                            UserId = new Guid("3448d5a4-0f72-4dd7-bf15-c14a46b26c00")
+                            UserId = new Guid("3448d5a4-0f72-4dd7-bf15-c14a46b26c01")
                         },
                         new
                         {
-                            ContractorId = new Guid("fc7509db-f131-49fc-88f1-76f509ae3751"),
+                            ContractorId = new Guid("b419a7ca-3321-4f38-be8e-4d7b6a529318"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Romanov",
                             Name = "Mike",
@@ -139,10 +134,50 @@ namespace SouthWestContractors.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SouthWestContractors.Domain.Entities.ContractorCategory", b =>
+                {
+                    b.Property<Guid>("ContractorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ContractorId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("ContractorCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            ContractorId = new Guid("ee272f8b-6096-4cb6-8625-bb4bb2d89e8a"),
+                            CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde")
+                        },
+                        new
+                        {
+                            ContractorId = new Guid("3448d5a4-0f72-4dd7-bf15-c14a46b26c00"),
+                            CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6")
+                        },
+                        new
+                        {
+                            ContractorId = new Guid("b419a7ca-3321-4f38-be8e-4d7b6a529318"),
+                            CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9")
+                        },
+                        new
+                        {
+                            ContractorId = new Guid("b419a7ca-3321-4f38-be8e-4d7b6a529318"),
+                            CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde")
+                        });
+                });
+
             modelBuilder.Entity("SouthWestContractors.Domain.Entities.Galery", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("GaleryId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ContractorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -157,37 +192,79 @@ namespace SouthWestContractors.Persistence.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("GaleryId");
+
+                    b.HasIndex("ContractorId");
 
                     b.ToTable("Galeries");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
+                            GaleryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dd1"),
+                            ContractorId = new Guid("ee272f8b-6096-4cb6-8625-bb4bb2d89e8a"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "uno",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg"
                         },
                         new
                         {
-                            Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
+                            GaleryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a2"),
+                            ContractorId = new Guid("ee272f8b-6096-4cb6-8625-bb4bb2d89e8a"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "dos",
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg"
+                        },
+                        new
+                        {
+                            GaleryId = new Guid("bf3f3002-7e53-441e-8b76-f6280be284a3"),
+                            ContractorId = new Guid("3448d5a4-0f72-4dd7-bf15-c14a46b26c00"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "tres",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg"
                         });
                 });
 
+            modelBuilder.Entity("SouthWestContractors.Domain.Entities.ContractorCategory", b =>
+                {
+                    b.HasOne("SouthWestContractors.Domain.Entities.Category", "Category")
+                        .WithMany("ContractorCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SouthWestContractors.Domain.Entities.Contractor", "Contractor")
+                        .WithMany("ContractorCategories")
+                        .HasForeignKey("ContractorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Contractor");
+                });
+
+            modelBuilder.Entity("SouthWestContractors.Domain.Entities.Galery", b =>
+                {
+                    b.HasOne("SouthWestContractors.Domain.Entities.Contractor", "Contractor")
+                        .WithMany("Galery")
+                        .HasForeignKey("ContractorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contractor");
+                });
+
             modelBuilder.Entity("SouthWestContractors.Domain.Entities.Category", b =>
                 {
-                    b.HasOne("SouthWestContractors.Domain.Entities.Contractor", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("ContractorId");
+                    b.Navigation("ContractorCategories");
                 });
 
             modelBuilder.Entity("SouthWestContractors.Domain.Entities.Contractor", b =>
                 {
-                    b.Navigation("Categories");
+                    b.Navigation("ContractorCategories");
+
+                    b.Navigation("Galery");
                 });
 #pragma warning restore 612, 618
         }

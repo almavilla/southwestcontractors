@@ -12,13 +12,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SouthWestContractors.Application\SouthWestContractors.Application.csproj" />
     <ProjectReference Include="..\SouthWestContractors.Domain\SouthWestContractors.Domain.csproj" />
+    <ProjectReference Include="..\SouthWestContractors.Infrastructure\SouthWestContractors.Infrastructure.csproj" />
     <ProjectReference Include="..\SouthWestContractors.Persistence\SouthWestContractors.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>

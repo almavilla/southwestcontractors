@@ -30,7 +30,7 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.UpdateCa
             //if not found return notFoundException
             if (categoryToUpdate == null)
             {
-                throw new NotFoundException(typeof(Category).ToString(), request.Id);
+                throw new NotFoundException(nameof(Category), request.Id);
             }
             //Create an isntance of the validator and send
             //the request to be validated
