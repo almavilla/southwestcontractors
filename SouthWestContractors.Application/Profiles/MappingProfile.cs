@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using SouthWestContractors.Application.Features.Categories.Commands.CreateCategory;
+using SouthWestContractors.Application.Features.Categories.Commands.DeleteCategory;
+using SouthWestContractors.Application.Features.Categories.Commands.UpdateCategory;
 using SouthWestContractors.Application.Features.Categories.Queries.GetCategoriesList;
 using SouthWestContractors.Application.Features.Contractors.Commands.CreateContractor;
+using SouthWestContractors.Application.Features.Contractors.Commands.DeleteContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor;
 using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorsList;
 using SouthWestContractors.Application.Features.Galeries.Queries.GetCategoriesList;
@@ -16,11 +19,16 @@ namespace SouthWestContractors.Application.Profiles
             //source/destination
             CreateMap<CreateContractorCommand, Contractor>();
             CreateMap<UpdateContractorCommand, Contractor>();
+            CreateMap<DeleteContractorCommand, Contractor>();
+            CreateMap<CreateCategoryCommand, Category>();
+            CreateMap<UpdateCategoryCommnad, Category>();
+            CreateMap<DeleteCategoryCommand, Category>();
             CreateMap<Category, CreateCategoryDto>();
             CreateMap<Contractor, CreateContractorDto>();
             CreateMap<Contractor, ContractorsListVm>();
             CreateMap<Galery, GaleriesListVm>();
             CreateMap<Category, CategoryListVm>();
+            
         }
     }
 }

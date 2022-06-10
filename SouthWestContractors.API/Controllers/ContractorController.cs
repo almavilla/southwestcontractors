@@ -1,11 +1,13 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SouthWestContractors.API.Models;
+using SouthWestContractors.Application.Features.CategoriesContractors.Commands.CreateContractorCategories;
 using SouthWestContractors.Application.Features.Contractors.Commands.CreateContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.DeleteContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor;
 using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorsList;
-using SouthWestContractors.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,18 +18,31 @@ namespace SouthWestContractors.API.Controllers
     public class ContractorController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public ContractorController(IMediator mediator)
+        public ContractorController(IMediator mediator,
+            IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
+            
         }
 
         [HttpPost]
-        public async Task<ActionResult<CreateContractorCommandResponse>> Create([FromBody] CreateContractorCommand contractorCommand)
+        public async Task<ActionResult<CreateContractorCommandResponse>> Create([FromBody] ContractorCategories contractorCategories)
         {
+            var contractorCommand = new CreateContractorCommand();
+            _mapper.Map(contractorCategories,contractorCommand, typeof(CreateContractorCommand), typeof(ContractorCategories));
+            
+
             var response = await _mediator.Send(contractorCommand).ConfigureAwait(false);
+            var contractorCategoryCommand = new CreateContractorCategoriesCommand();
+            contractorCategoryCommand.ContractorId=response;
+            contractorCategoryCommand.Categories=contractorCategories.Categories;
+            var result = await _mediator.Send(contractorCategoryCommand);
             return Ok(response);
         }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ContractorsListVm>>> GetAll()
