@@ -1,9 +1,7 @@
 ﻿using MediatR;
+using SouthWestContractors.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor
 {
@@ -18,5 +16,7 @@ namespace SouthWestContractors.Application.Features.Contractors.Commands.UpdateC
         public string State { get; set; }
         public string Zipcode { get; set; }
         public string PhoneNumber { get; set; }
+        public ICollection<Galery> Galery { get; set; }
+        public ICollection<Category> Categories { get; set; }
     }
 }

@@ -4,8 +4,8 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.CreateCa
 {
     public class CreateCategoryDto
     {
-        //Include the id because this class is used for the response
-        public Guid Id { get; set; }
+        //Include CategoryId because this class is used for the response
+        public Guid CategoryId { get; set; }
         public string Name { get; set; }
     }
 }

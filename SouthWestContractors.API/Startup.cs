@@ -7,7 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SouthWestContractors.API.Middleware;
 using SouthWestContractors.Application;
+using SouthWestContractors.Infrastructure;
 using SouthWestContractors.Persistence;
 using System;
 using System.Collections.Generic;
@@ -28,8 +30,10 @@ namespace SouthWestContractors.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApiServices();
             services.AddApplicationServices();           
             services.AddPersistenceServices(Configuration);
+            services.AddInfrastructureServices(Configuration);
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling =
             Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -48,7 +52,7 @@ namespace SouthWestContractors.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SouthWestContractors.API v1"));
             }
-
+            app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
 
             app.UseRouting();

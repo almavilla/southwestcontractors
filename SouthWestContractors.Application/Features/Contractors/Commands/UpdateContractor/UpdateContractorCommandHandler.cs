@@ -28,7 +28,7 @@ namespace SouthWestContractors.Application.Features.Contractors.Commands.UpdateC
             var contractorToUpdate = await _contractorRepository.GetByIdAsync(request.ContractorId);
             if (contractorToUpdate == null)
             {
-                throw new NotFoundException(typeof(Contractor).ToString(), request.ContractorId);
+                throw new NotFoundException(nameof(Contractor), request.ContractorId);
             }
             var validator = new UpdateContractorCommandValidator();
             var validationResult = validator.Validate(request);

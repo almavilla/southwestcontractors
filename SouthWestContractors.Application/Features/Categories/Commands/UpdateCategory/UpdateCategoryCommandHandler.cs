@@ -3,10 +3,6 @@ using MediatR;
 using SouthWestContractors.Application.Contracts.Persistence;
 using SouthWestContractors.Application.Exceptions;
 using SouthWestContractors.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,13 +22,13 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.UpdateCa
         public async Task<Unit> Handle(UpdateCategoryCommnad request, CancellationToken cancellationToken)
         {
             //Get the category to update
-            var categoryToUpdate = await _categoryRepository.GetByIdAsync(request.Id);
+            var categoryToUpdate = await _categoryRepository.GetByIdAsync(request.CategoryId);
             //if not found return notFoundException
             if (categoryToUpdate == null)
             {
-                throw new NotFoundException(typeof(Category).ToString(), request.Id);
+                throw new NotFoundException(nameof(Category), request.CategoryId);
             }
-            //Create an isntance of the validator and send
+            //Create an instance of the validator and send
             //the request to be validated
             var validator = new UpdateCategoryCommandValidator();
             var validationResult = validator.Validate(request);

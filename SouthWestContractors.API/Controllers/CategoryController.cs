@@ -5,6 +5,7 @@ using SouthWestContractors.Application.Features.Categories.Commands.CreateCatego
 using SouthWestContractors.Application.Features.Categories.Commands.DeleteCategory;
 using SouthWestContractors.Application.Features.Categories.Commands.UpdateCategory;
 using SouthWestContractors.Application.Features.Categories.Queries.GetCategoriesList;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SouthWestContractors.API.Controllers
@@ -22,7 +23,7 @@ namespace SouthWestContractors.API.Controllers
 
         [HttpGet("all", Name ="GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<CategoryListVm>> GetAllCategories()
+        public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
         {
             var dtos = await _mediator.Send(new GetCategoriesListQuery());
             return Ok(dtos);

@@ -21,10 +21,10 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.DeleteCa
 
         public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var categoryToDelete = await _categoryRepository.GetByIdAsync(request.Id);
+            var categoryToDelete = await _categoryRepository.GetByIdAsync(request.CategoryId);
             if (categoryToDelete == null)
             {
-                throw new NotFoundException(typeof(Category).ToString(), request.Id);
+                throw new NotFoundException(typeof(Category).ToString(), request.CategoryId);
             }
             var validator = new DeleteCategoryCommandValidator();
             var validationResult = validator.Validate(request);
