@@ -9,6 +9,7 @@ namespace SouthWestContractors.Application.Contracts
     public interface ILoggedInUserService
     {
         //only get
-        public string UserId { get; }
+        //public string UserId { get; }
+        string GetLoginUserName();
     }
 }

@@ -1,0 +1,48 @@
+﻿@page "/CategoryOverview"
+@inherits CategoryOverviewModel
+@*@page "/fetchdata"
+*@
+@*@using SouthWestContractors.AppClient.Services
+@inject ContractorDataService ContractorService*@
+<h3>Categories Overview</h3>
+
+@*<div class="m-2 d-flex justify-content-end">
+    <button @onclick="AddNewContractor" class="mr-1">Add event</button>
+    <button @onclick="ExportContractors">Export events</button>
+</div>*@
+
+
+
+@if (Categories == null)
+{
+<p><em>Loading...</em></p>
+}
+else
+{
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Category Id</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Categories)
+            {
+        <tr>
+           
+            <td class="event-name">@ev.CategoryId </td>
+            <td class="event-name">@ev.Name </td>
+            @*<td>
+                <a href="@($"contractordetails/{ev.ContractorId}")" class="event-purchase-button btn">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>*@
+        </tr>
+            }
+    </tbody>
+</table>
+}
+

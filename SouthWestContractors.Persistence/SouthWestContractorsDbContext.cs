@@ -11,7 +11,7 @@ namespace SouthWestContractors.Persistence
 {
     public class SouthWestContractorsDbContext : DbContext
     {
-        //private readonly ILoggedInUserService _loggedInUserService;
+        private readonly ILoggedInUserService _loggedInUserService;
 
         public SouthWestContractorsDbContext(DbContextOptions<SouthWestContractorsDbContext> options)
            : base(options)
@@ -19,11 +19,11 @@ namespace SouthWestContractors.Persistence
 
         }
 
-        //public SouthWestContractorsDbContext(DbContextOptions<SouthWestContractorsDbContext> options, ILoggedInUserService loggedInUserService)
-        //    : base(options)
-        //{
-        //    _loggedInUserService = loggedInUserService;
-        //}
+        public SouthWestContractorsDbContext(DbContextOptions<SouthWestContractorsDbContext> options, ILoggedInUserService loggedInUserService)
+            : base(options)
+        {
+            _loggedInUserService = loggedInUserService;
+        }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Contractor> Contractors { get; set; }
@@ -47,6 +47,7 @@ namespace SouthWestContractors.Persistence
                 .WithMany(t => t.ContractorCategories)
                 .HasForeignKey(pt => pt.CategoryId);
 
+           
 
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(SouthWestContractorsDbContext).Assembly);
@@ -161,11 +162,11 @@ namespace SouthWestContractors.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
-                        // entry.Entity.CreatedBy = _loggedInUserService.UserId;
+                        entry.Entity.CreatedBy = _loggedInUserService.GetLoginUserName();
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;
-                        // entry.Entity.LastModifiedBy = _loggedInUserService.UserId;
+                        entry.Entity.LastModifiedBy = _loggedInUserService.GetLoginUserName();
                         break;
                 }
             }

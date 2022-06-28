@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using System;
 
 namespace SouthWestContractors.Application.Features.Galeries.Commands.DeleteGalery
 {
-    class DeleteGaleryCommand
+    public class DeleteGaleryCommand : IRequest
     {
+        public Guid GaleryId { get; set; }
+        public Guid ContractorId { get; set; }
     }
 }

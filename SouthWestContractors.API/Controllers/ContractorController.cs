@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SouthWestContractors.API.Models;
@@ -27,8 +28,8 @@ namespace SouthWestContractors.API.Controllers
             _mapper = mapper;
             
         }
-
-        [HttpPost]
+        [Authorize]
+        [HttpPost (Name="CreateContractor")]
         public async Task<ActionResult<CreateContractorCommandResponse>> Create([FromBody] ContractorCategories contractorCategories)
         {
             var contractorCommand = new CreateContractorCommand();
@@ -42,7 +43,7 @@ namespace SouthWestContractors.API.Controllers
             var result = await _mediator.Send(contractorCategoryCommand);
             return Ok(response);
         }
-
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ContractorsListVm>>> GetAll()
@@ -61,7 +62,7 @@ namespace SouthWestContractors.API.Controllers
 
         }
 
-        [HttpPut]
+        [HttpPut(Name ="UpdateContractor")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Update([FromBody] UpdateContractorCommand updateContractorCommand)

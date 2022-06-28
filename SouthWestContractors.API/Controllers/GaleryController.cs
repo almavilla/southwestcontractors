@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SouthWestContractors.Application.Features.Galeries.Commands;
 using SouthWestContractors.Application.Features.Galeries.Commands.CreateGalery;
+using SouthWestContractors.Application.Features.Galeries.Commands.DeleteGalery;
 using SouthWestContractors.Application.Features.Galeries.Queries.GetCategoriesList;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace SouthWestContractors.API.Controllers
         {
             _mediator=mediator;
         }
-        [HttpGet]
+        [HttpGet (Name = "GetGaleries")]
         public async Task<ActionResult<List<GaleriesListVm>>> GetAllGaleries()
         {
             var dtos = await _mediator.Send(new GetGaleriesListQuery());
@@ -28,8 +29,14 @@ namespace SouthWestContractors.API.Controllers
         [HttpPost(Name ="AddGalery")]
         public async Task<ActionResult<CreateGaleryCommandResponse>> Create([FromBody] CreateGaleryCommand galeryCommand)
         {
-            var response = _mediator.Send(galeryCommand);
+            var response = await _mediator.Send(galeryCommand);
             return Ok(response);
+        }
+        [HttpDelete(Name ="DeleteGalery")]
+        public async Task<ActionResult> Delete([FromBody] DeleteGaleryCommand deleteGalery)
+        {
+            await _mediator.Send(deleteGalery);
+            return NoContent();
         }
 
 

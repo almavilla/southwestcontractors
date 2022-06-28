@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Builder;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -23,6 +23,9 @@ namespace SouthWestContractors.API
                 .CreateLogger();
 
             CreateHostBuilder(args).Build().Run();
+
+
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

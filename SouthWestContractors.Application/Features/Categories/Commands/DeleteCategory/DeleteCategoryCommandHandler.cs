@@ -24,7 +24,7 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.DeleteCa
             var categoryToDelete = await _categoryRepository.GetByIdAsync(request.CategoryId);
             if (categoryToDelete == null)
             {
-                throw new NotFoundException(typeof(Category).ToString(), request.CategoryId);
+                throw new NotFoundException(nameof(Category), request.CategoryId);
             }
             var validator = new DeleteCategoryCommandValidator();
             var validationResult = validator.Validate(request);

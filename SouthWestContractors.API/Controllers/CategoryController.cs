@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SouthWestContractors.Application.Features.Categories.Commands.CreateCategory;
@@ -21,6 +22,7 @@ namespace SouthWestContractors.API.Controllers
             _mediator=mediator;
         }
 
+        [Authorize]
         [HttpGet("all", Name ="GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
@@ -28,7 +30,8 @@ namespace SouthWestContractors.API.Controllers
             var dtos = await _mediator.Send(new GetCategoriesListQuery());
             return Ok(dtos);
         }
-        [HttpPost(Name ="AddCategory")]
+        [Authorize]
+        [HttpPost("create", Name ="AddCategory")]
         public async Task<ActionResult<CreateCategoryCommandResponse>> Create([FromBody] CreateCategoryCommand categoryCommand)
         {
             var response = await _mediator.Send(categoryCommand);
@@ -45,7 +48,7 @@ namespace SouthWestContractors.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete(Name = "DeleteCategory")]
         public async Task<ActionResult> Delete([FromBody] DeleteCategoryCommand deleteCategoryCommand)
         {
             await _mediator.Send(deleteCategoryCommand);

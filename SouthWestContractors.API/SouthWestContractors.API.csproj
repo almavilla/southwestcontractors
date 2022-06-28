@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SouthWestContractors.Application\SouthWestContractors.Application.csproj" />
     <ProjectReference Include="..\SouthWestContractors.Domain\SouthWestContractors.Domain.csproj" />
+    <ProjectReference Include="..\SouthWestContractors.Identity\SouthWestContractors.Identity.csproj" />
     <ProjectReference Include="..\SouthWestContractors.Infrastructure\SouthWestContractors.Infrastructure.csproj" />
     <ProjectReference Include="..\SouthWestContractors.Persistence\SouthWestContractors.Persistence.csproj" />
   </ItemGroup>

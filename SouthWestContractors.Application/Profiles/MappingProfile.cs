@@ -7,6 +7,8 @@ using SouthWestContractors.Application.Features.Contractors.Commands.CreateContr
 using SouthWestContractors.Application.Features.Contractors.Commands.DeleteContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor;
 using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorsList;
+using SouthWestContractors.Application.Features.Galeries.Commands.CreateGalery;
+using SouthWestContractors.Application.Features.Galeries.Commands.DeleteGalery;
 using SouthWestContractors.Application.Features.Galeries.Queries.GetCategoriesList;
 using SouthWestContractors.Domain.Entities;
 
@@ -23,10 +25,12 @@ namespace SouthWestContractors.Application.Profiles
             CreateMap<CreateCategoryCommand, Category>();
             CreateMap<UpdateCategoryCommnad, Category>();
             CreateMap<DeleteCategoryCommand, Category>();
+            CreateMap<DeleteGaleryCommand, Galery>();
             CreateMap<Category, CreateCategoryDto>();
             CreateMap<Contractor, CreateContractorDto>();
             CreateMap<Contractor, ContractorsListVm>();
             CreateMap<Galery, GaleriesListVm>();
+            CreateMap<Galery, CreateGaleryDto>();
             CreateMap<Category, CategoryListVm>();
             
         }
