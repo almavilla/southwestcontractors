@@ -3,6 +3,7 @@ using SouthWestContractors.Application.Features.Categories.Commands.CreateCatego
 using SouthWestContractors.Application.Features.Categories.Commands.DeleteCategory;
 using SouthWestContractors.Application.Features.Categories.Commands.UpdateCategory;
 using SouthWestContractors.Application.Features.Categories.Queries.GetCategoriesList;
+using SouthWestContractors.Application.Features.ContractorCategories.Queries.GetContractorCategories;
 using SouthWestContractors.Application.Features.Contractors.Commands.CreateContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.DeleteContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor;
@@ -29,6 +30,7 @@ namespace SouthWestContractors.Application.Profiles
             CreateMap<Category, CreateCategoryDto>();
             CreateMap<Contractor, CreateContractorDto>();
             CreateMap<Contractor, ContractorsListVm>();
+            CreateMap<ContractorCategory, ContractorCategoriesListVM>();
             CreateMap<Galery, GaleriesListVm>();
             CreateMap<Galery, CreateGaleryDto>();
             CreateMap<Category, CategoryListVm>();

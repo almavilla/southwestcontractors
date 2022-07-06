@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SouthWestContractors.API.Models;
-using SouthWestContractors.Application.Features.CategoriesContractors.Commands.CreateContractorCategories;
+using SouthWestContractors.Application.Features.ContractorCategories.Commands.CreateContractorCategories;
+using SouthWestContractors.Application.Features.ContractorCategories.Commands.DeleteContractorCategories;
 using SouthWestContractors.Application.Features.Contractors.Commands.CreateContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.DeleteContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor;
 using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorsList;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,17 +32,9 @@ namespace SouthWestContractors.API.Controllers
         }
         [Authorize]
         [HttpPost (Name="CreateContractor")]
-        public async Task<ActionResult<CreateContractorCommandResponse>> Create([FromBody] ContractorCategories contractorCategories)
+        public async Task<ActionResult<CreateContractorCommandResponse>> Create([FromBody] CreateContractorCommand contractorCommand)
         {
-            var contractorCommand = new CreateContractorCommand();
-            _mapper.Map(contractorCategories,contractorCommand, typeof(CreateContractorCommand), typeof(ContractorCategories));
-            
-
             var response = await _mediator.Send(contractorCommand).ConfigureAwait(false);
-            var contractorCategoryCommand = new CreateContractorCategoriesCommand();
-            contractorCategoryCommand.ContractorId=response;
-            contractorCategoryCommand.Categories=contractorCategories.Categories;
-            var result = await _mediator.Send(contractorCategoryCommand);
             return Ok(response);
         }
         [Authorize]
@@ -65,10 +59,10 @@ namespace SouthWestContractors.API.Controllers
         [HttpPut(Name ="UpdateContractor")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Update([FromBody] UpdateContractorCommand updateContractorCommand)
+        public async Task<ActionResult<Guid>> Update([FromBody] UpdateContractorCommand updateContractorCommand)
         {
-            await _mediator.Send(updateContractorCommand).ConfigureAwait(false);
-            return NoContent();
+            var response = await _mediator.Send(updateContractorCommand).ConfigureAwait(false);        
+            return Ok(response);            
         }
         
     }

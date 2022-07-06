@@ -23,9 +23,6 @@ namespace SouthWestContractors.API
                 .CreateLogger();
 
             CreateHostBuilder(args).Build().Run();
-
-
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

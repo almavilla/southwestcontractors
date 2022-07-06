@@ -12,7 +12,7 @@ namespace SouthWestContractors.Application.Contracts.Persistence
         Task<IReadOnlyList<T>> ListAllAsync();
         Task<T> GetByIdAsync(Guid Id);
         Task<T> AddAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task<T> UpdateAsync(T entity);
         //needs entity
         Task DeleteAsync(T entity);
     }

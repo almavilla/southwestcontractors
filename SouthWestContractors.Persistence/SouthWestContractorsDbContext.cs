@@ -27,6 +27,8 @@ namespace SouthWestContractors.Persistence
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Contractor> Contractors { get; set; }
+
+        public DbSet<ContractorCategory> ContractorCategories { get; set; }
         public DbSet<Galery> Galeries { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

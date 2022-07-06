@@ -1,17 +1,12 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using SouthWestContractors.API.Middleware;
 using SouthWestContractors.API.Services;
 using SouthWestContractors.API.Utility;
 using SouthWestContractors.Application;
@@ -19,10 +14,7 @@ using SouthWestContractors.Application.Contracts;
 using SouthWestContractors.Identity;
 using SouthWestContractors.Infrastructure;
 using SouthWestContractors.Persistence;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SouthWestContractors.API
 {
@@ -46,7 +38,6 @@ namespace SouthWestContractors.API
             services.AddApplicationServices();           
             services.AddPersistenceServices(Configuration);
             services.AddInfrastructureServices(Configuration);
-           
 
             services.AddCors(options =>
             {
@@ -122,7 +113,7 @@ namespace SouthWestContractors.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCustomExceptionHandler();
+           // app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
             
             app.UseRouting();

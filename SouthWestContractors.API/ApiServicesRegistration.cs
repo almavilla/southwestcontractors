@@ -17,7 +17,6 @@ namespace SouthWestContractors.API
                 throw new ArgumentNullException(nameof(services));
             }
 
-            //services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
             services.AddScoped<ILoggedInUserService, LoggedInUserService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

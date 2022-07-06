@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace SouthWestContractors.Application.Features.CategoriesContractors.Commands.CreateContractorCategories
+namespace SouthWestContractors.Application.Features.ContractorCategories.Commands.CreateContractorCategories
 {
     public class CreateContractorCategoriesCommandValidator : AbstractValidator<CreateContractorCategoriesCommand>
     {

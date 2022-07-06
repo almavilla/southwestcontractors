@@ -3,7 +3,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SouthWestContractors.Application.Contracts.Identity;
 using SouthWestContractors.Application.Models.Authentication;
-using SouthWestContractors.Identity.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,12 +15,12 @@ namespace SouthWestContractors.Identity.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
-        public AuthenticationService(UserManager<ApplicationUser> userManager,
+        public AuthenticationService(UserManager<IdentityUser> userManager,
            IOptions<JwtSettings> jwtSettings,
-           SignInManager<ApplicationUser> signInManager)
+           SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
@@ -60,17 +59,17 @@ namespace SouthWestContractors.Identity.Services
         public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
         {
             var existingUser = await _userManager.FindByNameAsync(request.UserName);
-
+            var response = new RegistrationResponse();
             if (existingUser != null)
             {
-                throw new Exception($"Username '{request.UserName}' already exists.");
+                response.Success = false;
+                response.Message = $"Username '{request.UserName}' already exists.";
+                return response;
             }
 
-            var user = new ApplicationUser
+            var user = new IdentityUser
             {
                 Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
                 UserName = request.UserName,
                 EmailConfirmed = true
             };
@@ -79,6 +78,7 @@ namespace SouthWestContractors.Identity.Services
 
             if (existingEmail == null)
             {
+                string errorMessage = string.Empty;
                 var result = await _userManager.CreateAsync(user, request.Password);
 
                 if (result.Succeeded)
@@ -87,16 +87,29 @@ namespace SouthWestContractors.Identity.Services
                 }
                 else
                 {
-                    throw new Exception($"{result.Errors}");
+                    response.Success = false;
+                    response.Message = result.Errors.FirstOrDefault().ToString();
+                    if (result.Errors.Count() > 0)
+                    {
+                        var errors = new List<string>();
+                        foreach (var item in result.Errors)
+                        {
+                            errors.Add(item.Description.ToString());
+                        }                                          
+                        response.ValidationErrors = errors;
+                    }
+                    return response;
                 }
             }
             else
             {
-                throw new Exception($"Email {request.Email } already exists.");
+                response.Success = false;
+                response.Message = $"Email {request.Email } already exists.";
+                return response;
             }
         }
 
-        private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
+        private async Task<JwtSecurityToken> GenerateToken(IdentityUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);

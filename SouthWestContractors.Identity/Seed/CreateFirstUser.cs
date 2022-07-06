@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SouthWestContractors.Identity.Models;
 using System.Threading.Tasks;
 
 namespace SouthWestContractors.Identity.Seed
 {
     public class UserCreator
     {
-        public static async Task SeedAsync(UserManager<ApplicationUser> userManager)
+        public static async Task SeedAsync(UserManager<IdentityUser> userManager)
         {
-            var applicationUser = new ApplicationUser
+            var applicationUser = new IdentityUser
             {
-                FirstName = "John",
-                LastName = "Smith",
+                
                 UserName = "johnsmith",
                 Email = "john@test.com",
                 EmailConfirmed = true

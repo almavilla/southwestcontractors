@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SouthWestContractors.Identity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SouthWestContractors.Identity
 {
-    public class SouthWestContractorsIdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class SouthWestContractorsIdentityDbContext : IdentityDbContext
     {
         public SouthWestContractorsIdentityDbContext(DbContextOptions<SouthWestContractorsIdentityDbContext> options)
             : base(options)

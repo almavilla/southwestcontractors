@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SouthWestContractors.Application.Contracts.Identity;
 using SouthWestContractors.Application.Models.Authentication;
-using SouthWestContractors.Identity.Models;
 using SouthWestContractors.Identity.Services;
 using System;
 using System.Text;
@@ -25,7 +24,7 @@ namespace SouthWestContractors.Identity
             options.UseSqlServer(configuration.GetConnectionString("SouthWestContractorsIdentityConnectionString"),
             b => b.MigrationsAssembly(typeof(SouthWestContractorsIdentityDbContext).Assembly.FullName)));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<SouthWestContractorsIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
