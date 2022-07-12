@@ -33,8 +33,6 @@ namespace SouthWestContractors.API
         {
             AddSwagger(services);
             services.AddApiServices();
-            
-
             services.AddApplicationServices();           
             services.AddPersistenceServices(Configuration);
             services.AddInfrastructureServices(Configuration);
@@ -43,22 +41,12 @@ namespace SouthWestContractors.API
             {
                 options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
-
         
-            //services.AddSession();
             services.AddControllers();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<ILoggedInUserService, LoggedInUserService>();
             services.AddIdentityServices(Configuration);
-            //services.AddControllers().AddNewtonsoftJson(options =>
-            //options.SerializerSettings.ReferenceLoopHandling =
-            //Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SouthWestContractors.API", Version = "v1" });
-            //});
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -106,19 +94,15 @@ namespace SouthWestContractors.API
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-           // app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
-            
             app.UseRouting();
             app.UseAuthentication();
-            
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SouthWestContractors.API v1"));
             app.UseCors("Open");

@@ -1,13 +1,8 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace SouthWestContractors.Application.Features.Galeries.Commands.UpdateGalery
 {
-    public class UpdateGaleryCommand: IRequest<UpdateGaleryCommandResponse>
+    public class UpdateGaleryDto
     {
         public Guid GaleryId { get; set; }
         public Guid ContractorId { get; set; }

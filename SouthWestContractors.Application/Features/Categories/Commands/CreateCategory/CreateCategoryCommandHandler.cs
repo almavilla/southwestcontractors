@@ -4,8 +4,6 @@ using SouthWestContractors.Application.Contracts.Persistence;
 using SouthWestContractors.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,20 +16,20 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.CreateCa
 
         public CreateCategoryCommandHandler(IMapper mapper, IAsyncRepository<Category> categoryRepository)
         {
-            _mapper= mapper;
-            _categoryRepository=categoryRepository;
+            _mapper = mapper;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<CreateCategoryCommandResponse> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var response = new CreateCategoryCommandResponse();
-           
+
             var validator = new CreateCategoryCommandValidator();
             var validatorResult = validator.Validate(request);
-            if (validatorResult.Errors.Count>0)
+            if (validatorResult.Errors.Count > 0)
             {
                 response.ValidationErrors = new List<string>();
-                response.Success=false;
+                response.Success = false;
                 foreach (var error in validatorResult.Errors)
                 {
                     response.ValidationErrors.Add(error.ErrorMessage);
@@ -42,7 +40,7 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.CreateCa
             {
                 var category = new Category() { Name = request.Name };
                 category = await _categoryRepository.AddAsync(category);
-                response.Category= _mapper.Map<CreateCategoryDto>(category);
+                response.Category = _mapper.Map<CreateCategoryDto>(category);
             }
             return response;
 

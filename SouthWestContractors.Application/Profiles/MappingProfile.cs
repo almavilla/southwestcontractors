@@ -10,6 +10,7 @@ using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContr
 using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorsList;
 using SouthWestContractors.Application.Features.Galeries.Commands.CreateGalery;
 using SouthWestContractors.Application.Features.Galeries.Commands.DeleteGalery;
+using SouthWestContractors.Application.Features.Galeries.Commands.UpdateGalery;
 using SouthWestContractors.Application.Features.Galeries.Queries.GetCategoriesList;
 using SouthWestContractors.Domain.Entities;
 
@@ -33,6 +34,20 @@ namespace SouthWestContractors.Application.Profiles
             CreateMap<ContractorCategory, ContractorCategoriesListVM>();
             CreateMap<Galery, GaleriesListVm>();
             CreateMap<Galery, CreateGaleryDto>();
+            CreateMap<Galery, UpdateGaleryDto>();
+            //CreateMap<Galery, UpdateGaleryDto>()
+            //    .ForMember(dest => dest.GaleryId, opts => opts.MapFrom(src => src.GaleryId))
+            //.ForMember(dest => dest.ContractorId, opts => opts.MapFrom(src => src.ContractorId))
+            //.ForMember(dest => dest.ImageUrl, opts => opts.MapFrom(src => src.ImageUrl))
+            //.ForMember(dest => dest.Description, opts => opts.MapFrom(src => src.Description));
+
+
+
+            //        Mapper.Mapper.CreateMap<BookViewModel, Book>()
+            //.ForMember(dest => dest.Author.Name,
+            //           opts => opts.MapFrom(src => src.Author));
+            //CreateMap<Foo, Bar>().ForMember(x => x.Blarg, opt => opt.Ignore());
+
             CreateMap<Category, CategoryListVm>();
             
         }

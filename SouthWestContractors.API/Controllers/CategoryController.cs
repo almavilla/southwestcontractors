@@ -30,7 +30,7 @@ namespace SouthWestContractors.API.Controllers
             var dtos = await _mediator.Send(new GetCategoriesListQuery());
             return Ok(dtos);
         }
-        [Authorize]
+       
         [HttpPost("create", Name ="AddCategory")]
         public async Task<ActionResult<CreateCategoryCommandResponse>> Create([FromBody] CreateCategoryCommand categoryCommand)
         {
