@@ -17,6 +17,7 @@ namespace SouthWestContractors.Persistence
         
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IContractorCategoryRepository, ContractorCategoryRepository>();
+            services.AddScoped<IContractorRepository, ContractorRepository>();
             return services;
         }
        

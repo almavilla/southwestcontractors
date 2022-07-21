@@ -17,6 +17,9 @@ namespace SouthWestContractors.API
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
+
+            System.IO.Directory.CreateDirectory("Logs");
+
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)
                 .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)

@@ -20,26 +20,26 @@ namespace SouthWestContractors.API.Controllers
         {
             _mediator=mediator;
         }
-        [HttpGet (Name = "GetGaleries")]
+        [HttpGet ("GetAll", Name = "GetAllGaleries")]
         public async Task<ActionResult<List<GaleriesListVm>>> GetAllGaleries()
         {
             var dtos = await _mediator.Send(new GetGaleriesListQuery());
             return dtos;
         }
 
-        [HttpPost(Name ="AddGalery")]
+        [HttpPost("Create", Name ="AddGalery")]
         public async Task<ActionResult<CreateGaleryCommandResponse>> Create([FromBody] CreateGaleryCommand galeryCommand)
         {
             var response = await _mediator.Send(galeryCommand);
             return Ok(response);
         }
-        [HttpPut(Name ="UpdateGalery")]
+        [HttpPut("Update", Name ="UpdateGalery")]
         public async Task<ActionResult<UpdateGaleryCommandResponse>> Update([FromBody] UpdateGaleryCommand updateGalery)
         {
             var response = await _mediator.Send(updateGalery);
             return Ok(response);
         }
-        [HttpDelete(Name ="DeleteGalery")]
+        [HttpDelete("Delete", Name ="DeleteGalery")]
         public async Task<ActionResult> Delete([FromBody] DeleteGaleryCommand deleteGalery)
         {
             await _mediator.Send(deleteGalery);

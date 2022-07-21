@@ -28,8 +28,4 @@
     <ProjectReference Include="..\SouthWestContractors.Persistence\SouthWestContractors.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Logs\" />
-  </ItemGroup>
-
 </Project>

@@ -26,17 +26,9 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.DeleteCa
             {
                 throw new NotFoundException(nameof(Category), request.CategoryId);
             }
-            var validator = new DeleteCategoryCommandValidator();
-            var validationResult = validator.Validate(request);
-            if(validationResult.Errors.Count>0)
-            {
-                throw new ValidationException(validationResult);
-            }
-
             _mapper.Map(request, categoryToDelete, typeof(DeleteCategoryCommand), typeof(Category));
             await _categoryRepository.DeleteAsync(categoryToDelete);
             return Unit.Value;
-
         }
     }
 }

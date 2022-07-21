@@ -9,6 +9,7 @@ using SouthWestContractors.Application.Features.ContractorCategories.Commands.De
 using SouthWestContractors.Application.Features.Contractors.Commands.CreateContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.DeleteContractor;
 using SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor;
+using SouthWestContractors.Application.Features.Contractors.Queries.GetContractor;
 using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorsList;
 using System;
 using System.Collections.Generic;
@@ -31,21 +32,29 @@ namespace SouthWestContractors.API.Controllers
             
         }
         [Authorize]
-        [HttpPost (Name="CreateContractor")]
+        [HttpPost ("Create", Name="CreateContractor")]
         public async Task<ActionResult<CreateContractorCommandResponse>> Create([FromBody] CreateContractorCommand contractorCommand)
         {
             var response = await _mediator.Send(contractorCommand).ConfigureAwait(false);
             return Ok(response);
         }
-        [Authorize]
-        [HttpGet]
+       // [Authorize]
+        [HttpGet ("GetAll", Name = "GetAllContractors")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ContractorsListVm>>> GetAll()
         {
             var result = await _mediator.Send(new GetContractorsListQuery()).ConfigureAwait(false);
             return Ok(result);
         }
-        [HttpDelete(Name ="DeleteContractor")]
+        [HttpGet("GetDetail", Name = "GetContractorDetail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<ContractorDetailVM>> GetContractorDetail(Guid contractorId)
+        {
+            var result = await _mediator.Send(new GetContractorDetailQuery() { ContractorId = contractorId }).ConfigureAwait(false);
+            return Ok(result);
+        }
+        [HttpDelete("Delete", Name ="DeleteContractor")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -56,7 +65,7 @@ namespace SouthWestContractors.API.Controllers
 
         }
 
-        [HttpPut(Name ="UpdateContractor")]
+        [HttpPut("Update", Name ="UpdateContractor")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Guid>> Update([FromBody] UpdateContractorCommand updateContractorCommand)

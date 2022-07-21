@@ -13,5 +13,6 @@ namespace SouthWestContractors.BlazorClient.Contracts
         Task<ApiResponse<Guid>> CreateContractor(ContractorDetailViewModel eventDetailViewModel);
         Task<ApiResponse<Guid>> UpdateContractor(ContractorDetailViewModel eventDetailViewModel);
         Task<ApiResponse<Guid>> DeleteContractor(ContractorDeleteViewModel id);
+        Task<ContractorDetailViewModel> GetContractorDetail(Guid id);
     }
 }

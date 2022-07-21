@@ -2,9 +2,9 @@
 
 namespace SouthWestContractors.BlazorClient.ViewModels
 {
-    public class CategoryListViewModel
+    public class CategoryUpdateViewModel
     {
-        public Guid CategoryId { get; set; }
+        public string CategoryId { get; set; }
         public string Name { get; set; }
     }
 }

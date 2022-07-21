@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using SouthWestContractors.Application.Contracts.Persistence;
 using SouthWestContractors.Domain.Entities;
 using System;
@@ -13,11 +14,15 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.CreateCa
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Category> _categoryRepository;
+        private ILogger<CreateCategoryCommandHandler> _logger;
 
-        public CreateCategoryCommandHandler(IMapper mapper, IAsyncRepository<Category> categoryRepository)
+        public CreateCategoryCommandHandler(IMapper mapper, 
+            IAsyncRepository<Category> categoryRepository,
+            ILogger<CreateCategoryCommandHandler> logger)
         {
             _mapper = mapper;
             _categoryRepository = categoryRepository;
+            _logger = logger;
         }
 
         public async Task<CreateCategoryCommandResponse> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
@@ -33,11 +38,14 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.CreateCa
                 foreach (var error in validatorResult.Errors)
                 {
                     response.ValidationErrors.Add(error.ErrorMessage);
+                    _logger.LogError(error.ErrorMessage);
+
                 }
 
             }
             if (response.Success)
             {
+                _logger.LogInformation("Category created successfully");
                 var category = new Category() { Name = request.Name };
                 category = await _categoryRepository.AddAsync(category);
                 response.Category = _mapper.Map<CreateCategoryDto>(category);

@@ -1,15 +1,14 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using SouthWestContractors.BlazorClient.Components;
 using SouthWestContractors.BlazorClient.Contracts;
 using SouthWestContractors.BlazorClient.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SouthWestContractors.BlazorClient.Pages
 {
-    public class ContractorOverviewModel :  ComponentBase
+    public partial class ContractorOverview
     {
         [Inject]
         public IContractorDataService ContractorDataService { get; set; }
@@ -18,38 +17,25 @@ namespace SouthWestContractors.BlazorClient.Pages
         public NavigationManager NavigationManager { get; set; }
 
         public ICollection<ContractorListViewModel> Contractors { get; set; }
+        protected AddContractorDialog AddContractorDialog { get; set; }
 
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; }
+        //[Inject]
+        //public IJSRuntime JSRuntime { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
             Contractors = await ContractorDataService.GetAllContractors();
         }
 
-        //protected void AddNewContractor()
-        //{
-        //    NavigationManager.NavigateTo("/contractordetails");
-        //}
+        protected void QuickAddContractor()
+        {
+            AddContractorDialog.Show();
+        }
 
-        [Inject]
-        public HttpClient HttpClient { get; set; }
-
-        //protected async Task ExportContractors()
-        //{
-        //    if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to export this list to Excel?"))
-        //    {
-        //        var response = await HttpClient.GetAsync($"https://localhost:5001/api/contractors/export");
-        //        response.EnsureSuccessStatusCode();
-        //        var fileBytes = await response.Content.ReadAsByteArrayAsync();
-        //        var fileName = $"MyReport{DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)}.csv";
-        //        await JSRuntime.InvokeAsync<object>("saveAsFile", fileName, Convert.ToBase64String(fileBytes));
-        //    }
-        //}
-
-        //public void Dispose()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async void AddContractorDialog_OnDialogClose()
+        {
+            Contractors = (await ContractorDataService.GetAllContractors()).ToList();
+            StateHasChanged();
+        }
     }
 }

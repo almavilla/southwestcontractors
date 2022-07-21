@@ -48,6 +48,7 @@ namespace SouthWestContractors.Persistence
                 .HasOne(pt => pt.Category)
                 .WithMany(t => t.ContractorCategories)
                 .HasForeignKey(pt => pt.CategoryId);
+            
 
            
 

@@ -1,0 +1,30 @@
+﻿@page "/categoryDetail/{CategoryId}"
+
+<section class="category-detail">
+     <h1 class="page-title">Details for @Category.Name</h1>
+    
+
+    <div class="col-12 row">
+        <div class="col-2">
+        </div>
+        <div class="col-10 row">
+            <div class="col-xs-12 col-sm-8">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Category ID</label>
+                    <div class="col-sm-8">
+                        <label type="text" >@Category.CategoryId</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">First name</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Category.Name</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+</section>

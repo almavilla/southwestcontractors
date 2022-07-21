@@ -8,11 +8,11 @@ a, .btn-link {
     color: #0366d6;
 }
 
-.btn-primary {
+/*.btn-primary {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-}
+}*/
 
 .content {
     padding-top: 1.1rem;
@@ -48,3 +48,17 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.category-detail, .category-edit {
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+    .category-detail .form-group {
+        margin-bottom: 0;
+    }
+
+.page-title {
+    color: #23cfa7;
+    font-size: 28px;
+}

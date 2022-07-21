@@ -1,0 +1,44 @@
+﻿@page "/updatecategory"
+@page "/updatecategory/{CategoryId}"
+
+
+
+@Message
+@if (!Saved)
+{
+    <section class="employee-edit">
+        <h1 class="page-title">Details for @Category.Name</h1>
+        <EditForm Model="@Category" OnValidSubmit="@HandleValidSubmit"  OnInvalidSubmit="@HandleInvalidSubmit">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary></ValidationSummary>
+
+
+            <div class="form-group row">
+                <label for="name" class="col-sm-3">Category name: </label>
+                <InputText id="name" class="form-control col-sm-5"
+                       @bind-Value="@Category.Name"
+                       placeholder="Enter category name"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-5" For="@(() => Category.Name)" />
+            </div>
+
+             <button type="submit" class="btn btn-primary edit-btn">Save</button>
+
+            @if (!string.IsNullOrEmpty(Category.CategoryId.ToString()))
+            {
+                <a class="btn btn-danger" @onclick="@DeleteEmployee">
+                    Delete
+                </a>
+            }
+
+            <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+        </EditForm>
+    </section>
+
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+
+
+}

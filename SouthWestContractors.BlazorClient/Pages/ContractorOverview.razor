@@ -1,48 +1,41 @@
 ﻿@page "/ContractorOverview"
-@inherits ContractorOverviewModel
-@*@page "/fetchdata"
-*@
-@*@using SouthWestContractors.AppClient.Services
-@inject ContractorDataService ContractorService*@
-<h3>Contractor Overview</h3>
-
-@*<div class="m-2 d-flex justify-content-end">
-    <button @onclick="AddNewContractor" class="mr-1">Add event</button>
-    <button @onclick="ExportContractors">Export events</button>
-</div>*@
-
-
+<h1 class="page-title">All Contractors</h1>
 
 @if (Contractors == null)
 {
-<p><em>Loading...</em></p>
+    <p><em>Loading...</em></p>
 }
 else
 {
-<table>
-    <thead>
-        <tr>
-            <th></th>
-            <th>Contractor Name</th>
-            <th>Contractor Last Name</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ev in Contractors)
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contractor in Contractors)
             {
-        <tr>
-           
-            <td class="event-name">@ev.Name </td>
-            <td class="event-name">@ev.LastName </td>
-            @*<td>
-                <a href="@($"contractordetails/{ev.ContractorId}")" class="event-purchase-button btn">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>*@
-        </tr>
+                <tr>
+                    
+                    <td>@contractor.Name</td>
+                    <td>@contractor.LastName</td>
+                   <td>
+                    <a href="@($"contractordetail/{contractor.ContractorId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a href="@($"updatecontractor/{contractor.ContractorId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                </tr>
             }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 }
+    <button @onclick="QuickAddContractor" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<AddContractorDialog @ref="AddContractorDialog" CloseEventCallback="@AddContractorDialog_OnDialogClose"></AddContractorDialog>
+
 

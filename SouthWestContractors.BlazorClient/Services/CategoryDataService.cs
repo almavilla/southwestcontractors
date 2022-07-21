@@ -19,16 +19,23 @@ namespace SouthWestContractors.BlazorClient.Services
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<CreateCategoryDto>> AddCategory(CategoryAddViewModel category)
+        public async Task<ApiResponse<CreateCategoryDto>> AddCategory(Category category)
         {
-            await AddBearerToken();
+           // await AddBearerToken();
             try
             {
                 ApiResponse<CreateCategoryDto> apiResponse = new ApiResponse<CreateCategoryDto>();
+                //The AddCategoryAsync is expecting CreateCategoryCommand which is defined in ServiceClient file
+                //type so we mapp from CategoryAddViewModel to CreateCategoryCommand. 
+                //Then the method is returning CreateCategoryCommandResponse which is defined in ServiceClient file
+                //so we mimic CreateCategoryCommandResponse using ApiResponse<CreateCategoryDto>
+                //in which CreateCategoryDto is in ServiceClient file and ApiResponse is in Base folder
                 CreateCategoryCommand createCategoryCommand = _mapper.Map<CreateCategoryCommand>(category);
                 var createCategoryCommandResponse = await _client.AddCategoryAsync(createCategoryCommand);
                 if (createCategoryCommandResponse.Success)
                 {
+                    //apiResponse.Data = _mapper.Map<CreateCategoryDto>(createCategoryCommandResponse.Category);
+                    _mapper.Map<ApiResponse<CreateCategoryDto>>(createCategoryCommandResponse);
                     apiResponse.Data = _mapper.Map<CreateCategoryDto>(createCategoryCommandResponse.Category);
                     apiResponse.Success = true;
                 }
@@ -47,23 +54,46 @@ namespace SouthWestContractors.BlazorClient.Services
                 return ConvertApiExceptions<CreateCategoryDto>(ex);
             }
         }
-
-        public async Task<List<CategoryListViewModel>> GetAllCategories()
+        public async Task UpdateCategory(Category category)
         {
-            await AddBearerToken();
-            var categories = await _client.GetAllCategoriesAsync();
-            var categoriesList = _mapper.Map<ICollection<CategoryListViewModel>>(categories);            
-            return categoriesList.ToList();       
+           // await AddBearerToken();
+           
+                //ApiResponse<CreateCategoryDto> apiResponse = new ApiResponse<CreateCategoryDto>();
+                UpdateCategoryCommand updateCategoryCommand = _mapper.Map<UpdateCategoryCommand>(category);
+                await _client.UpdateCategoryAsync(updateCategoryCommand);
+               
+                    //apiResponse.Data = _mapper.Map<CreateCategoryDto>(createCategoryCommandResponse.Category);
+                    //_mapper.Map<ApiResponse<CreateCategoryDto>>(createCategoryCommandResponse);
+                   // apiResponse.Data = _mapper.Map<CreateCategoryDto>(createCategoryCommandResponse.Category);
+                   
+            
         }
 
-        //public async Task DeleteCategory(CategoryDeleteViewModel deleteCategory)
-        //{
-        //    await AddBearerToken();
-        //    await _client.d
+        public async Task<List<Category>> GetAllCategories()
+        {
+            //await AddBearerToken();
+            var categories = await _client.GetAllCategoriesAsync();
+            var categoriesList = _mapper.Map<ICollection<Category>>(categories);            
+            return categoriesList.ToList();       
+        }
+        
+        public async Task<Category> GetCategory(Guid id)
+        {
+            var category = await _client.GetCategoryAsync(id);
+            var categoryVM = _mapper.Map<Category>(category);
+            return categoryVM;
+        }
 
-        //}
+        public async Task DeleteCategory(Category category)
+        {
+            //await AddBearerToken();
+            var categoryToDelete = _mapper.Map<DeleteCategoryCommand>(category);
+            await _client.DeleteCategoryAsync(categoryToDelete);
 
-      
+
+        }
+
+
 
     }
 }

@@ -1,0 +1,66 @@
+﻿@page "/contractorDetail/{ContractorId}"
+
+<section class="category-detail">
+     <h1 class="page-title">Details for @Contractor.Name</h1>
+    
+
+    <div class="col-12 row">
+        <div class="col-2">
+        </div>
+        <div class="col-10 row">
+            <div class="col-xs-12 col-sm-8">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Contractor ID</label>
+                    <div class="col-sm-8">
+                        <label type="text" >@Contractor.ContractorId</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">First name</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Contractor.Name</label>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Last name</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Contractor.LastName</label>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Address</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Contractor.Address</label>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">City</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Contractor.City</label>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">State</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Contractor.State</label>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Zipcode</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Contractor.Zipcode</label>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">PhoneNumber</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Contractor.PhoneNumber</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+</section>

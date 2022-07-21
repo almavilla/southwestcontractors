@@ -21,7 +21,7 @@ namespace SouthWestContractors.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("Add", Name = "AddContractorCategories")]
+        [HttpPost("Create", Name = "AddContractorCategories")]
         public async Task<ActionResult<BaseResponse>> Add([FromBody] CreateContractorCategoriesCommand contractorCategories)
         {
             var response = await _mediator.Send(contractorCategories);
@@ -36,7 +36,7 @@ namespace SouthWestContractors.API.Controllers
             return Ok(contractorCategories);
         }
 
-        [HttpDelete("DeleteCategories", Name = "DeleteContractorCategories")]
+        [HttpDelete("Delete", Name = "DeleteContractorCategories")]
         public async Task<ActionResult<BaseResponse>> Delete([FromBody] DeleteContractorCategoriesCommand contractorId)
         {
             var response = await _mediator.Send(contractorId);

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using SouthWestContractors.Application.Features.Contractors.Queries.GetContractorDetail;
+using System;
 using System.Collections.Generic;
 
-namespace SouthWestContractors.BlazorClient.ViewModels
+namespace SouthWestContractors.Application.Features.Contractors.Queries.GetContractor
 {
-    public class ContractorDetailViewModel
+    public class ContractorDetailVM
     {
         public Guid ContractorId { get; set; }
         public Guid UserId { get; set; }
@@ -14,7 +15,7 @@ namespace SouthWestContractors.BlazorClient.ViewModels
         public string State { get; set; }
         public string Zipcode { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<Galery> Galery { get; set; }
-        public ICollection<ContractorCategory> Categories { get; set; }
+        public ICollection<GaleryDetailDto> Galery { get; set; }
+        public ICollection<ContractorCategoryDetailDto> Categories { get; set; }
     }
 }

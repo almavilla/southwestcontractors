@@ -41,7 +41,7 @@ namespace SouthWestContractors.BlazorClient.Services
 
         public async Task<bool> Register(string firstName, string lastName, string userName, string email, string password)
         {
-            RegistrationRequest registrationRequest = new RegistrationRequest() { FirstName = firstName, LastName = lastName, Email = email, UserName = userName, Password = password };
+            RegistrationRequest registrationRequest = new RegistrationRequest() { Email = email, UserName = userName, Password = password };
             var response = await _client.RegisterAsync(registrationRequest);
 
             if (!string.IsNullOrEmpty(response.UserId))

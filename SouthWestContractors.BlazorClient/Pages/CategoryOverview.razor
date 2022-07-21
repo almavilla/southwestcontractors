@@ -1,48 +1,41 @@
 ﻿@page "/CategoryList"
-@inherits CategoryOverviewModel
-@*@page "/fetchdata"
-*@
-@*@using SouthWestContractors.AppClient.Services
-@inject ContractorDataService ContractorService*@
-<h3>Categories Overview</h3>
-
-@*<div class="m-2 d-flex justify-content-end">
-    <button @onclick="AddNewContractor" class="mr-1">Add event</button>
-    <button @onclick="ExportContractors">Export events</button>
-</div>*@
-
-
+<h1 class="page-title">All categories</h1>
 
 @if (Categories == null)
 {
-<p><em>Loading...</em></p>
+    <p><em>Loading...</em></p>
 }
 else
 {
-<table>
-    <thead>
-        <tr>
-            <th></th>
-            <th>Category Id</th>
-            <th>Name</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ev in Categories)
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category ID</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Categories)
             {
-        <tr>
-           
-            <td class="event-name">@ev.CategoryId </td>
-            <td class="event-name">@ev.Name </td>
-            @*<td>
-                <a href="@($"contractordetails/{ev.ContractorId}")" class="event-purchase-button btn">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>*@
-        </tr>
+                <tr>
+                    <td>@category.CategoryId</td>
+                    <td>@category.Name</td>
+                    
+                   <td>
+                    <a href="@($"categorydetail/{category.CategoryId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a href="@($"updatecategory/{category.CategoryId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                </tr>
             }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 }
+    <button @onclick="QuickAddCategory" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<AddCategoryDialog @ref="AddCategoryDialog" CloseEventCallback="@AddCategoryDialog_OnDialogClose"></AddCategoryDialog>
+
 
