@@ -16,6 +16,8 @@ namespace SouthWestContractors.Persistence
             .GetConnectionString("SouthWestContractorsConnectionString")));
         
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IContractorCategoryRepository, ContractorCategoryRepository>();
+            services.AddScoped<IContractorRepository, ContractorRepository>();
             return services;
         }
        

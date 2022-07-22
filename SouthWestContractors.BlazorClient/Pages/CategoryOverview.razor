@@ -1,0 +1,41 @@
+﻿@page "/CategoryList"
+<h1 class="page-title">All categories</h1>
+
+@if (Categories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category ID</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Categories)
+            {
+                <tr>
+                    <td>@category.CategoryId</td>
+                    <td>@category.Name</td>
+                    
+                   <td>
+                    <a href="@($"categorydetail/{category.CategoryId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a href="@($"updatecategory/{category.CategoryId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+    <button @onclick="QuickAddCategory" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<AddCategoryDialog @ref="AddCategoryDialog" CloseEventCallback="@AddCategoryDialog_OnDialogClose"></AddCategoryDialog>
+
+

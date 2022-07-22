@@ -1,0 +1,41 @@
+﻿@page "/ContractorOverview"
+<h1 class="page-title">All Contractors</h1>
+
+@if (Contractors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contractor in Contractors)
+            {
+                <tr>
+                    
+                    <td>@contractor.Name</td>
+                    <td>@contractor.LastName</td>
+                   <td>
+                    <a href="@($"contractordetail/{contractor.ContractorId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a href="@($"updatecontractor/{contractor.ContractorId}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+    <button @onclick="QuickAddContractor" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<AddContractorDialog @ref="AddContractorDialog" CloseEventCallback="@AddContractorDialog_OnDialogClose"></AddContractorDialog>
+
+

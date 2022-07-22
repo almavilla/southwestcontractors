@@ -4,7 +4,8 @@ namespace SouthWestContractors.Application.Features.Galeries.Queries.GetCategori
 {
     public class GaleriesListVm
     {
-        public Guid Id { get; set; }
+        public Guid GaleryId { get; set; }
+        public Guid ContractorId { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
     }

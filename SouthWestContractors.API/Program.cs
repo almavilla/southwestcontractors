@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Builder;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,9 @@ namespace SouthWestContractors.API
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
+
+            System.IO.Directory.CreateDirectory("Logs");
+
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)
                 .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)

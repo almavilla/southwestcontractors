@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SouthWestContractors.Application.Features.Contractors.Commands.UpdateContractor
 {
-    public class UpdateContractorCommand : IRequest
+    public class UpdateContractorCommand : IRequest<Guid>
     {
         public Guid ContractorId { get; set; }
         public Guid UserId { get; set; }
@@ -16,7 +16,7 @@ namespace SouthWestContractors.Application.Features.Contractors.Commands.UpdateC
         public string State { get; set; }
         public string Zipcode { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<Galery> Galery { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        //public ICollection<GaleryDto> Galery { get; set; }
+        //public ICollection<CategoryDto> Categories { get; set; }
     }
 }

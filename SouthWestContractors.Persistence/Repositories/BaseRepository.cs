@@ -10,7 +10,7 @@ namespace SouthWestContractors.Persistence.Repositories
 {
     public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {
-        private readonly SouthWestContractorsDbContext _context;
+        protected readonly SouthWestContractorsDbContext _context;
 
         public BaseRepository(SouthWestContractorsDbContext context)
         {
@@ -60,10 +60,11 @@ namespace SouthWestContractors.Persistence.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

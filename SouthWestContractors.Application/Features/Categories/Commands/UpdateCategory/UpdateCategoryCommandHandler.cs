@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SouthWestContractors.Application.Features.Categories.Commands.UpdateCategory
 {
-    public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommnad>
+    public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand>
     {
         private readonly IAsyncRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.UpdateCa
             _mapper=mapper;
         }
 
-        public async Task<Unit> Handle(UpdateCategoryCommnad request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
             //Get the category to update
             var categoryToUpdate = await _categoryRepository.GetByIdAsync(request.CategoryId);
@@ -43,7 +43,7 @@ namespace SouthWestContractors.Application.Features.Categories.Commands.UpdateCa
             //this means the request data is going to be
             //copied to the founded category
             //then call therepository to update sending the updated category
-            _mapper.Map(request, categoryToUpdate, typeof(UpdateCategoryCommnad), typeof(Category));
+            _mapper.Map(request, categoryToUpdate, typeof(UpdateCategoryCommand), typeof(Category));
             await _categoryRepository.UpdateAsync(categoryToUpdate);
             return Unit.Value;
         }
